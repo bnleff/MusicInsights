@@ -26,7 +26,7 @@ nrow(preferences)
 ```
 
 ```{r}
-colnames(preferences)
+colnames(survey)
 ```
 
 # Cleaning Data Fram Column Names
@@ -35,5 +35,13 @@ colnames(preferences)
 colnames(survey)[colnames(survey) == "First, we are going to create a pseudonym for you to keep this survey anonymous (more or less). Which pseudonym generator would you prefer?"] <- "generator_name"
 colnames(survey)[colnames(survey) == "What is your pseudonym?" ] <- "pseudonym"
 colnames(survey)[colnames(survey) == "Academic Year" ] <- "academic_year"
+colnames(survey)[colnames(survey) == "Sex"] <- "sex"
+colnames(survey)[colnames(survey) == "Major"] <- "major"
+colnames(survey)[colnames(survey) == "Year you were born (YYYY)"] <- "birth_year"
+colnames(survey)[colnames(survey) == "Which musical instruments/talents do you play? (Select all that apply)"] <- "instruments"
+colnames(survey)[colnames(survey) == "Timestamp"] <- "timestamp"
+colnames(survey)[colnames(survey) == "Artist"] <- "artist"
+colnames(survey)[colnames(survey) == "Song"] <- "song"
+colnames(survey)[colnames(survey) == "Link to song (on Youtube or Vimeo)"] <- "song_link"
 ```
 
