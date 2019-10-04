@@ -2,6 +2,7 @@
 title: "Music Insights"
 author: "Brandon Leff"
 output:
+  pdf_document: default
   html_document:
     df_print: paged
 ---
@@ -24,6 +25,8 @@ preferences <- read_csv("https://raw.githubusercontent.com/introdsci/MusicSurvey
 #nrow(df)
 #colnames(df)
 #levels(df)
+#gather()
+#spread()
 ```
 
 # Cleaning Data Frame Column Names to Consistent Format
@@ -51,7 +54,8 @@ First Let's Make a Data Frame Called "person"
 tibble() creates data frames with more constraints.
 
 ```{r}
-person <- tibble(pseudonym = survey$pseudonym, 
+person <- tibble(time_submitted = survey$time_submitted,
+                 pseudonym = survey$pseudonym, 
                  pseudonym_generator = survey$pseudonym_generator, 
                  sex = survey$sex, 
                  academic_major = survey$ academic_major, 
@@ -69,8 +73,59 @@ favorite_song <- tibble(
   fav_song_link = survey$favorite_song_link)
 ```
 
+```{r}
+person$time_submitted <- as.POSIXlt(parse_datetime(x = person$time_submitted, format = "%m/%d/%y %H:%M"))
+```
 
+Now let's make a ratings table from the preferences.
 
+```{r}
+ratings <- tibble(time_submitted = preferences$timestamp,
+                  pseudonym = preferences$`What was your pseudonym?`,
+ fourtycrew_notenough = preferences$"40 crew\tNot Enough"                              
+ ,arcticmonkeys_arabella = preferences$"Arctic Monkeys Arabella"                          
+ ,avatar_theeaglehaslanded = preferences$"Avatar\tThe Eagle Has Landed"                     
+ ,benfolds_still = preferences$"Ben Folds\tStill"                                 
+ ,blink_shesoutofhermind = preferences$"blink-182\tShe's Out Of Her Mind"
+ ,brianjonestownmassacre_seer= preferences$"brian jonestown massacre / sarabeth tucek\tSeer"  
+ ,brockhampton_nohalo= preferences$"BROCKHAMPTON\tNO HALO"                            
+ ,brotherali_canttakethataway= preferences$"Brother Ali\tCan't Take That Away"                
+ ,daboii_beatinachokehold= preferences$"Daboii\tBeat in a Chokehold"                      
+ ,danielcaesar_openup= preferences$"Daniel Caesar\tOpen Up"                           
+ ,delasoul_pattydooke= preferences$"De La Soul\tPatty Dooke"                          
+ ,deadkennedys_killthepoor= preferences$"Dead Kennedys\tKill The Poor"                     
+ ,dominicfike_threenights= preferences$"Dominic Fike\t3 Nights"                           
+ ,gorillaz_humility= preferences$"Gorillaz\tAny but here is Humility"               
+ ,dreamtheater_achangeofseasons= preferences$"Dream Theater\tA Change of Seasons"               
+ ,edsheeran_dive= preferences$"Ed Sheeran\tDive"                                 
+ ,generallevy_incredible= preferences$"General Levy\tIncredible (Remix)"                 
+ ,hiroyuki_sawano= preferences$"Hiroyuki Sawano\tS-ave"                           
+ ,jaipaul_doyoulovehernow= preferences$"Jai Paul\tDo You Love Her Now"                    
+ ,johnnycash_wellmeetagain= preferences$"Johnny Cash\tWe'll Meet Again"                    
+ ,kanebrown_whatsmineisyours= preferences$"Kane Brown\tWhat's Mine is Yours"                 
+ ,kimpetras_idontwantitall= preferences$"Kim Petras\tI dont want it at all"                
+ ,ledzeppelin_heywhatcanido= preferences$"Led Zeppelin\tHey Hey What Can I Do"              
+ ,marshmello_onethingright= preferences$"Marshmello\tOne Thing Right"                      
+ ,matisyahu_oneday= preferences$"Matisyahu\tOne Day"                               
+ ,mfdoom_potholderz= preferences$"MF DOOM\tPotholderz"                              
+ ,mozzy_bladadah= preferences$"mozzy\tbladadah"                                  
+ ,olivertree_hurt= preferences$"Oliver Tree\tHurt"                                
+ ,radiohead_weirdfishesarpeggi= preferences$"Radiohead\tweird fishes arpeggi"                  
+ ,rainbowkittensurprise_cocainejesus= preferences$"Rainbow Kitten Surprise\tCocaine Jesus"           
+ ,rickastley_nevergoingtogiveyouup= preferences$"Rick Astley\tNever Going to Give You Up"          
+ ,sia_elasticheart= preferences$"Sia\tElastic Heart"                               
+ ,sixtoo_jackals= preferences$"Sixtoo\tJackals and Vipers in Envy of Man [Album]"
+ ,snakeships_eitherway= preferences$"Snakehips\tEither Way"                            
+ ,sufjanstevens_shouldhaveknownbetter= preferences$"Sufjan Stevens\tShould Have Known Better"         
+ ,tameimpala_patience= preferences$"Tame Impala\tPatience"                            
+ ,theblackkeys_unknownbrother= preferences$"The Black Keys\tUnknown Brother"                  
+ ,thebyrds_mrspaceman= preferences$"The Byrds\tMr. Spaceman"                          
+ ,tool_fearinoculum= preferences$"Tool\tFear Inoculum"                              
+ ,traffic_dear= preferences$"Traffic\tDear Mr. Fantasy"                        
+ ,travisscott_astrothunder= preferences$"Travis Scott\tAstrothunder"                       
+ ,virtualself_angelicvoices= preferences$"Virtual Self\tAngel Voices"                       
+ ,weezer_buddyholly= preferences$"Wheezer\tBuddy Holly"     )
+```
 
 
 
