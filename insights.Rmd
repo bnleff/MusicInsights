@@ -15,6 +15,7 @@ library(tidyr)
 library(sjPlot)
 library(ggplot2)
 library(dplyr)
+library(reshape2)
 survey <- read_csv("https://raw.githubusercontent.com/introdsci/MusicSurvey/master/music-survey.csv")
 preferences <- read_csv("https://raw.githubusercontent.com/introdsci/MusicSurvey/master/preferences-survey.csv")
 ```
@@ -127,10 +128,32 @@ ratings <- tibble(time_submitted = preferences$timestamp,
  ,weezer_buddyholly= preferences$"Wheezer\tBuddy Holly"     )
 ```
 
+```{r}
+colnames(ratings)[colnames(ratings) == "value"] <- "rating"
+colnames(ratings)[colnames(ratings) == "variable"] <- "song_title"
+```
 
+```{r}
+ratings <- melt(ratings, id = c("time_submitted","pseudonym"))
+```
 
+```{r}
+ggplot(ratings, aes(x=pseudonym,y=value)) + geom_boxplot(outlier.colour = "red") + coord_flip()
+```
 
+```{r}
+own_ratings <- dplyr::right_join(ratings,favorite_song,by = "pseudonym")
+```
 
+```{r}
+table(own_ratings$pseudonym)
+```
+
+# Angel Angel, Band War, Mission Theory are Duplicates
+
+```{r}
+#test <- own_ratings %>% filter(pseudonym == c("Angel Angel", "Band War", "Mission Theory"))
+```
 
 
 
